@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import UserProvider from './contexts/UserProvider';
+import Header from './components/Header';
+import SidePanel from './components/SidePanel';
+import ShoppingList from './components/ShoppingList';
+import UserProfile from './components/UserProfile';
 
 function App() {
+  const [invitations] = useState([{ groupName: 'New Group Invitation' }]);
+
+  // Function to handle leaving the group
+  const leaveGroup = () => {
+    console.log('User left the group');
+    // Logic for leaving the group
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <div>
+        <Header />
+        <div style={{ display: 'flex' }}>
+          <SidePanel />
+          <ShoppingList />
+          <UserProfile onLeaveGroup={leaveGroup} invitations={invitations} />
+        </div>
+      </div>
+    </UserProvider>
   );
 }
 
